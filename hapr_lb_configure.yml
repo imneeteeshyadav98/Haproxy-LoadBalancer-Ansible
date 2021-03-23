@@ -1,0 +1,16 @@
+- hosts: lb
+  tasks:
+  - debug:
+      msg: Configure Haproxy Loadbalancer
+  - name: configure haproxy 
+    package: 
+      name: haproxy
+      state: present
+  - name: Create template to copy the file
+    template:
+      dest: "/etc/haproxy/haproxy.cfg"
+      src: "haproxy.cfg"
+  - name: start the haproxy
+    service:
+      name: "haproxy"
+      state: started

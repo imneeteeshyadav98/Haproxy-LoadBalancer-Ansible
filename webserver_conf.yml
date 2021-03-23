@@ -1,0 +1,26 @@
+- hosts: web
+  gather_facts: false
+  tasks:
+  - debug:
+      msg: Configure php server
+  - name: Install php software 
+    package:
+      name: "php"
+      state: present
+  - name: Install httpd software
+    package:
+      name: httpd
+      state: present
+  - name: Copy web page 
+    copy:
+      src: index.php
+      dest: /var/www/html/
+  - name: webserver started
+    service:
+      name: httpd
+      state: started
+  - name: Stop Firewalld
+    service:
+      name: firewalld
+      state: stopped
+
